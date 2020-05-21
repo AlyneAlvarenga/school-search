@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect, useState} from 'react';
 import './App.css';
+import axios from 'axios';
 
-function App() {
+const App = () => {
+  // useEffect(() => {
+  //   axios.get('/api/students').then(res => console.log(res));
+  // }, [])
+  const [input, setInput] = useState('');
+
+  const handleChange = (e) => {
+    setInput(e.target.value);
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(e.target.value);
+    
+    axios.get(`/api/${input}`).then(response => console.log(response.data)
+    )
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Helloooo</h1>
+      <form method="GET" onSubmit={handleSubmit}>
+        <input type="text" name="school" value={input} placeholder="School" onChange={handleChange} />
+        <button>Submit</button>
+      </form>
     </div>
   );
 }

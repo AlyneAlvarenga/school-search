@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const students = require('./routes/api/students');
+const help = require('./routes/api/help');
 
 const app = express();
 app.use(express.json());
@@ -15,6 +16,8 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
 
 //use routes
 app.use('/api/students', students);
+app.use('/api/', help);
+
 
 //run server
 const port = process.env.PORT || 5000;
