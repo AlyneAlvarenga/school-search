@@ -8,6 +8,7 @@ const App = () => {
   //   axios.get('/api/students').then(res => console.log(res));
   // }, [])
   const [schoolInput, setSchoolInput] = useState('');
+  const [currentSchool, setCurrentSchool] = useState('');
   const [schoolQuery, setSchoolQuery] = useState([]);
 
   const handleChange = (e) => {
@@ -16,6 +17,7 @@ const App = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setCurrentSchool(schoolInput);
     
     axios.get(`/api/${schoolInput}`)
       .then(response => {
@@ -38,6 +40,11 @@ const App = () => {
       setSchoolInput('');
   }
 
+  const showGradesOnly = () => {
+    axios.get(`/api/${currentSchool}/grades`)
+      .then(response => console.log(response.data));
+  }
+
   return (
     <div className="App">
       <h1>School Search</h1>
@@ -51,7 +58,7 @@ const App = () => {
             <>
             <h2>{schoolQuery[0].schoolName}</h2>
             <button>Download Full Report</button>
-            <button>Download Grades Only</button>
+            <button onClick={showGradesOnly}>Download Grades Only</button>
             <ul>
               {
                 schoolQuery.map(schoolObj => <SchoolData 

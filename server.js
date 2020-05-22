@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const students = require('./routes/api/students');
 const schoolSearch = require('./routes/api/schoolSearch');
+const grades = require('./routes/api/grades');
 
 const app = express();
 app.use(express.json());
@@ -17,6 +18,7 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
 //use routes
 app.use('/api/students', students);
 app.use('/api/', schoolSearch);
+app.use('/api/', grades);
 
 
 //run server

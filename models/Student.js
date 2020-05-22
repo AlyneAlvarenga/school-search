@@ -5,10 +5,9 @@ const StudentSchema = new Schema({
   schoolName: String,
   studentFirstName: String,
   studentLastName: String,
-  grades: {
-    Math: Number,
-    Science: Number,
-  }
+  grades: [
+    { subject: String, grade: Number},
+  ]
 });
   
   const Student = mongoose.model('student', StudentSchema);
@@ -17,40 +16,40 @@ const StudentSchema = new Schema({
   //   schoolName: `Xavier's School for Gifted Youngsters`,
   //   studentFirstName: `Logan`,
   //   studentLastName: 'Wolverine',
-  //   grades: {
-  //     Math: 50,
-  //     Science: 50,
-  //   }
+  //   grades: [
+  //     { subject: 'Math', grade: 50 },
+  //     { subject: 'Science', grade: 50 },
+  //   ]
   // })
   
   // Student.create({
   //   schoolName: `Xavier's School for Gifted Youngsters`,
   //   studentFirstName: `Storm`,
   //   studentLastName: 'Munroe',
-  //   grades: {
-  //     Math: 90,
-  //     Science: 100,
-  //   }
+  //   grades: [
+  //     { subject: 'Math', grade: 80 },
+  //     { subject: 'Science', grade: 100 },
+  //   ]
   // })
   
   // Student.create({
   //   schoolName: `Xavier's School for Gifted Youngsters`,
   //   studentFirstName: `Jean`,
   //   studentLastName: 'Grey',
-  //   grades: {
-  //     Math: 80,
-  //     Science: 70,
-  //   }
+  //   grades: [
+  //     { subject: 'Math', grade: 90 },
+  //     { subject: 'Science', grade: 80 },
+  //   ]
   // })
   
   // Student.create({
   //   schoolName: `Xavier's School for Gifted Youngsters`,
   //   studentFirstName: `Scott`,
   //   studentLastName: 'Summers',
-  //   grades: {
-  //     Math: 80,
-  //     Science: 70,
-  //   }
+  //   grades: [
+  //     { subject: 'Math', grade: 90 },
+  //     { subject: 'Science', grade: 80 },
+  //   ]
   // })
 
 module.exports = Student;

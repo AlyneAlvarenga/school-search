@@ -7,14 +7,16 @@ const SchoolData = (props) => {
       <p>Student Last Name: {props.schoolObj.studentLastName}</p>
       <p>Grades:</p>
       <ul>
-        <li>
-          <p>Math</p>
-          <p>{props.schoolObj.grades.Math}</p>
-        </li>
-        <li>
-          <p>Science</p>
-          <p>{props.schoolObj.grades.Science}</p>
-        </li>
+      {
+        props.schoolObj.grades.map(obj => {
+          return (
+            <li key={obj._id}>
+              <p>{obj.subject}</p>
+              <p>{obj.grade}</p>
+            </li>
+          )
+        })
+      }
       </ul>
     </li>
   )
