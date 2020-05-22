@@ -6,12 +6,11 @@ import { PDFViewer } from '@react-pdf/renderer';
 import PDFDoc from './PDFDoc';
 
 const App = () => {
-  // useEffect(() => {
-  //   axios.get('/api/students').then(res => console.log(res));
-  // }, [])
   const [schoolInput, setSchoolInput] = useState('');
   const [currentSchool, setCurrentSchool] = useState('');
   const [schoolQuery, setSchoolQuery] = useState([]);
+  const [grades, setGrades] = useState([]);
+  const [showPDF, setShowPDF] = useState(false);
 
   const handleChange = (e) => {
     setSchoolInput(e.target.value);
@@ -44,7 +43,9 @@ const App = () => {
 
   const showGradesOnly = () => {
     axios.get(`/api/${currentSchool}/grades`)
-      .then(response => console.log(response.data));
+      .then(response => setGrades(response.data));
+
+    setShowPDF(true);
   }
 
   return (
@@ -55,12 +56,13 @@ const App = () => {
         <button>Submit</button>
       </form>
       {
-        schoolQuery.length !== 0 
+        !showPDF && schoolQuery.length !== 0
           ? 
             <>
             <h2>{schoolQuery[0].schoolName}</h2>
             <button>Download Full Report</button>
-            <button onClick={showGradesOnly}>Download Grades Only</button>
+            <button onClick={showGradesOnly}>Download Grades as PDF</button>
+            <button>Download Grades and Names as PDF</button>
             <ul>
               {
                 schoolQuery.map(schoolObj => <SchoolData 
@@ -72,9 +74,14 @@ const App = () => {
             </>
           : null
       }
-      <PDFViewer width={500} height={800}>
-        <PDFDoc school={currentSchool}/>
-      </PDFViewer>
+      {
+        showPDF
+          ? 
+            <PDFViewer width={500} height={800}>
+              <PDFDoc school={currentSchool} grades={grades} />
+            </PDFViewer>
+          : null
+      }
     </div>
   );
 }
