@@ -20,7 +20,19 @@ const App = () => {
     axios.get(`/api/${schoolInput}`)
       .then(response => {
         console.log(response.data)
-        setSchoolQuery(response.data);
+        const sorted = response.data.sort((a, b) => {
+          const nameA = a.studentLastName.toLowerCase();
+          const nameB = b.studentLastName.toLowerCase();
+
+          if (nameA < nameB) {
+            return -1
+          }
+          if (nameA > nameB) {
+            return 1
+          }
+          return 0;
+        })
+        setSchoolQuery(sorted);
       })
     
       setSchoolInput('');
@@ -38,10 +50,13 @@ const App = () => {
           ? 
             <>
             <h2>{schoolQuery[0].schoolName}</h2>
+            <button>Download Full Report</button>
+            <button>Download Grades Only</button>
             <ul>
               {
                 schoolQuery.map(schoolObj => <SchoolData 
-                  schoolObj={schoolObj} key={schoolObj._id}
+                  schoolObj={schoolObj} 
+                  key={schoolObj._id}
                 />)
               }
             </ul>
