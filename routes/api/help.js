@@ -5,7 +5,7 @@ const Student = require('../../models/Student');
 
 router.get('/:school', (req, res) => {
   console.log(req.params)
-  Student.find({ studentName: req.params.school}, (err, items) => {
+  Student.find({ schoolName: req.params.school}, (err, items) => {
     res.status(200).json(items);
   })
   

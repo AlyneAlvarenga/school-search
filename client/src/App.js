@@ -1,32 +1,53 @@
 import React, {useEffect, useState} from 'react';
-import './App.css';
 import axios from 'axios';
+import SchoolData from './SchoolData';
+import './App.css';
 
 const App = () => {
   // useEffect(() => {
   //   axios.get('/api/students').then(res => console.log(res));
   // }, [])
-  const [input, setInput] = useState('');
+  const [schoolInput, setSchoolInput] = useState('');
+  const [schoolQuery, setSchoolQuery] = useState([]);
 
   const handleChange = (e) => {
-    setInput(e.target.value);
+    setSchoolInput(e.target.value);
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
     
-    axios.get(`/api/${input}`).then(response => console.log(response.data)
-    )
+    axios.get(`/api/${schoolInput}`)
+      .then(response => {
+        console.log(response.data)
+        setSchoolQuery(response.data);
+      })
+    
+      setSchoolInput('');
   }
 
   return (
     <div className="App">
-      <h1>Helloooo</h1>
+      <h1>School Search</h1>
       <form method="GET" onSubmit={handleSubmit}>
-        <input type="text" name="school" value={input} placeholder="School" onChange={handleChange} />
+        <input type="text" name="school" value={schoolInput} placeholder="School" onChange={handleChange} />
         <button>Submit</button>
       </form>
+      {
+        schoolQuery.length !== 0 
+          ? 
+            <>
+            <h2>{schoolQuery[0].schoolName}</h2>
+            <ul>
+              {
+                schoolQuery.map(schoolObj => <SchoolData 
+                  schoolObj={schoolObj} key={schoolObj._id}
+                />)
+              }
+            </ul>
+            </>
+          : null
+      }
     </div>
   );
 }
