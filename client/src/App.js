@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import SchoolData from './SchoolData';
 import './App.css';
 import { PDFViewer } from '@react-pdf/renderer';
 import PDFDoc from './PDFDoc';
+
 
 const App = () => {
   const [schoolInput, setSchoolInput] = useState('');
@@ -60,9 +61,8 @@ const App = () => {
           ? 
             <>
             <h2>{schoolQuery[0].schoolName}</h2>
-            <button>Download Full Report</button>
+            <button disabled>Download Full Report</button>
             <button onClick={showGradesOnly}>Download Grades as PDF</button>
-            <button>Download Grades and Names as PDF</button>
             <ul>
               {
                 schoolQuery.map(schoolObj => <SchoolData 

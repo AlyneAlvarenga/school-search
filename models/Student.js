@@ -12,15 +12,35 @@ const StudentSchema = new Schema({
   
   const Student = mongoose.model('student', StudentSchema);
   
-  // Student.create({
-  //   schoolName: `Xavier's School for Gifted Youngsters`,
-  //   studentFirstName: `Logan`,
-  //   studentLastName: 'Wolverine',
-  //   grades: [
-  //     { subject: 'Math', grade: 50 },
-  //     { subject: 'Science', grade: 50 },
-  //   ]
-  // })
+//   Student.create({
+//     schoolName: `Hogwarts School of Witchcraft and Wizardry`,
+//     studentFirstName: `Ron`,
+//     studentLastName: 'Weasley',
+//     grades: [
+//       { subject: 'History of Magic', grade: 50 },
+//       { subject: 'Potions', grade: 50 },
+//     ]
+//   })
+
+// Student.create({
+//   schoolName: `Hogwarts School of Witchcraft and Wizardry`,
+//   studentFirstName: `Hermione`,
+//   studentLastName: 'Granger',
+//   grades: [
+//     { subject: 'History of Magic', grade: 100 },
+//     { subject: 'Potions', grade: 100 },
+//   ]
+// })
+
+// Student.create({
+//   schoolName: `Hogwarts School of Witchcraft and Wizardry`,
+//   studentFirstName: `Harry`,
+//   studentLastName: 'Potter',
+//   grades: [
+//     { subject: 'History of Magic', grade: 80 },
+//     { subject: 'Potions', grade: 85 },
+//   ]
+// })
   
   // Student.create({
   //   schoolName: `Xavier's School for Gifted Youngsters`,
