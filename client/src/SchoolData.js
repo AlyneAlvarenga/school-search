@@ -5,7 +5,17 @@ const SchoolData = (props) => {
     <li>
       <p>Student First Name: {props.schoolObj.studentFirstName}</p>
       <p>Student Last Name: {props.schoolObj.studentLastName}</p>
-      <p>Grade: {props.schoolObj.studentGrade}</p>
+      <p>Grades:</p>
+      <ul>
+        <li>
+          <p>Math</p>
+          <p>{props.schoolObj.grades.Math}</p>
+        </li>
+        <li>
+          <p>Science</p>
+          <p>{props.schoolObj.grades.Science}</p>
+        </li>
+      </ul>
     </li>
   )
 }
