@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import SchoolData from './SchoolData';
 import './App.css';
+import { PDFViewer } from '@react-pdf/renderer';
+import PDFDoc from './PDFDoc';
 
 const App = () => {
   // useEffect(() => {
@@ -70,6 +72,9 @@ const App = () => {
             </>
           : null
       }
+      <PDFViewer width={500} height={800}>
+        <PDFDoc school={currentSchool}/>
+      </PDFViewer>
     </div>
   );
 }
