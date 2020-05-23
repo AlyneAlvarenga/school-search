@@ -43,7 +43,7 @@ const App = () => {
       setSchoolInput('');
   }
 
-  const showGradesOnly = () => {
+  const showGradesOnlyPDF = () => {
     axios.get(`/api/${currentSchool}/grades`)
       .then(response => setGrades(response.data));
 
@@ -61,7 +61,11 @@ const App = () => {
         !showPDF && schoolQuery.length !== 0
           ? 
             <>
-            <SchoolHeader currentSchool={currentSchool} showGradesOnly={showGradesOnly} />
+            <SchoolHeader 
+              currentSchool={currentSchool} 
+              showGradesOnlyPDF={showGradesOnlyPDF}
+              currentSchool={currentSchool}
+            />
             <ul>
               {
                 schoolQuery.map(schoolObj => <SchoolData 
@@ -77,7 +81,11 @@ const App = () => {
         showPDF
           ? 
           <>
-            <SchoolHeader currentSchool={currentSchool} showGradesOnly={showGradesOnly} />
+            <SchoolHeader 
+              currentSchool={currentSchool} 
+              showGradesOnlyPDF={showGradesOnlyPDF} 
+              currentSchool={currentSchool}
+            />
             <PDFViewer width={500} height={800}>
               <PDFDoc school={currentSchool} grades={grades} />
             </PDFViewer>
