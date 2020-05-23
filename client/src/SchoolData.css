@@ -1,0 +1,10 @@
+.SchoolData-card {
+  border: 1px solid seagreen;
+  min-width: 250px;
+  margin: 20px;
+}
+
+.SchoolData-gradesContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+}

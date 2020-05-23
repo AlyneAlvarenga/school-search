@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const PDFDoc = (props) => (
+const GradesPDF = (props) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
@@ -41,4 +41,4 @@ const PDFDoc = (props) => (
   </Document>
 );
 
-export default PDFDoc;
+export default GradesPDF;

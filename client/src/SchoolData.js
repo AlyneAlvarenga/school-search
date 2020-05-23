@@ -1,12 +1,13 @@
 import React from 'react';
+import './SchoolData.css';
 
 const SchoolData = (props) => {
   return (
-    <li>
-      <p>Student First Name: {props.schoolObj.studentFirstName}</p>
-      <p>Student Last Name: {props.schoolObj.studentLastName}</p>
+    <li className="SchoolData-card">
+      <p>Last Name: {props.schoolObj.studentLastName}</p>
+      <p>First Name: {props.schoolObj.studentFirstName}</p>
       <p>Grades:</p>
-      <ul>
+      <ul className="SchoolData-gradesContainer">
       {
         props.schoolObj.grades.map(obj => {
           return (

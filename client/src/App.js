@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import SchoolData from './SchoolData';
-import './App.css';
 import { PDFViewer } from '@react-pdf/renderer';
-import PDFDoc from './PDFDoc';
+import './App.css';
+import SchoolData from './SchoolData';
 import SchoolHeader from './SchoolHeader';
+import GradesPDF from './GradesPDF';
+import FullPDF from './FullPDF';
 
 
 const App = () => {
@@ -12,7 +13,8 @@ const App = () => {
   const [currentSchool, setCurrentSchool] = useState('');
   const [schoolQuery, setSchoolQuery] = useState([]);
   const [grades, setGrades] = useState([]);
-  const [showPDF, setShowPDF] = useState(false);
+  const [isGradesPDF, setIsGradesPDF] = useState(false);
+  const [isFullPDF, setIsFullPDF] = useState(false);
 
   const handleChange = (e) => {
     setSchoolInput(e.target.value);
@@ -43,30 +45,49 @@ const App = () => {
       setSchoolInput('');
   }
 
-  const showGradesOnlyPDF = () => {
+  const showGradesPDF = () => {
     axios.get(`/api/${currentSchool}/grades`)
       .then(response => setGrades(response.data));
 
-    setShowPDF(true);
+    setIsGradesPDF(true);
+    setIsFullPDF(false);
+
+  }
+
+  const showFullPDF = () => {
+    setIsFullPDF(true);
+    setIsGradesPDF(false);
   }
 
   return (
     <div className="App">
-      <h1>School Search</h1>
-      <form method="GET" onSubmit={handleSubmit}>
-        <input type="text" name="school" value={schoolInput} placeholder="School" onChange={handleChange} />
-        <button>Submit</button>
-      </form>
       {
-        !showPDF && schoolQuery.length !== 0
+        schoolQuery.length !== 0
+          ?
+          <SchoolHeader
+            currentSchool={currentSchool}
+            showGradesPDF={showGradesPDF}
+            showFullPDF={showFullPDF}
+          />
+          : null
+      }
+      {
+        currentSchool === ''
+        ?
+        <>
+          <h1>School Search</h1>
+          <form method="GET" onSubmit={handleSubmit}>
+          <label htmlFor="school" className="visuallyhidden">Name of School</label>
+          <input type="text" name="school" id="school" value={schoolInput} placeholder="School" onChange={handleChange} />
+          <button>Submit</button>
+          </form>
+        </>
+        : null
+      }
+      {
+        !isGradesPDF && !isFullPDF
           ? 
-            <>
-            <SchoolHeader 
-              currentSchool={currentSchool} 
-              showGradesOnlyPDF={showGradesOnlyPDF}
-              currentSchool={currentSchool}
-            />
-            <ul>
+            <ul className="App-cardsContainer">
               {
                 schoolQuery.map(schoolObj => <SchoolData 
                   schoolObj={schoolObj} 
@@ -74,22 +95,22 @@ const App = () => {
                 />)
               }
             </ul>
-            </>
           : null
       }
       {
-        showPDF
+        isGradesPDF
           ? 
-          <>
-            <SchoolHeader 
-              currentSchool={currentSchool} 
-              showGradesOnlyPDF={showGradesOnlyPDF} 
-              currentSchool={currentSchool}
-            />
-            <PDFViewer width={500} height={800}>
-              <PDFDoc school={currentSchool} grades={grades} />
+            <PDFViewer width={500} height={800} className="App-pdfViewer">
+              <GradesPDF school={currentSchool} grades={grades} />
             </PDFViewer>
-          </>
+          : null
+      }
+      {
+        isFullPDF
+          ?
+          <PDFViewer width={500} height={800} className="App-pdfViewer">
+              <FullPDF schoolQuery={schoolQuery} currentSchool={currentSchool}/>
+            </PDFViewer>
           : null
       }
     </div>

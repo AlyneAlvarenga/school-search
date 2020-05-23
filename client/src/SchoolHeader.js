@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { CSVLink } from "react-csv";
+import './SchoolHeader.css';
 
 const SchoolHeader = (props) => {
   const [data, setData] = useState([]);
@@ -12,7 +13,7 @@ const SchoolHeader = (props) => {
 
         setData(response.data);
       })
-  }, []);
+  }, [props.currentSchool]);
 
   const headers = [
     { label: "School", key: "schoolName" },
@@ -23,16 +24,15 @@ const SchoolHeader = (props) => {
   ];
 
   return (
-    <>
+    <header>
       <h2>{props.currentSchool}</h2>
       <button disabled>See Full Report</button>
-      <button disabled>See Full Report as PDF</button>
-      <button onClick={props.showGradesOnlyPDF}>See Grades as PDF</button>
-      <button onClick={() => console.log(data)}>Clickme</button>
+      <button onClick={props.showFullPDF}>See Full Report as PDF</button>
+      <button onClick={props.showGradesPDF}>See Grades as PDF</button>
       <CSVLink data={data} headers={headers} >
         Download Full Report as CSV
       </CSVLink>
-    </>
+    </header>
   )
 }
 
