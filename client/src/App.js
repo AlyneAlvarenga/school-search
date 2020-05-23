@@ -4,6 +4,7 @@ import SchoolData from './SchoolData';
 import './App.css';
 import { PDFViewer } from '@react-pdf/renderer';
 import PDFDoc from './PDFDoc';
+import SchoolHeader from './SchoolHeader';
 
 
 const App = () => {
@@ -60,9 +61,7 @@ const App = () => {
         !showPDF && schoolQuery.length !== 0
           ? 
             <>
-            <h2>{schoolQuery[0].schoolName}</h2>
-            <button disabled>Download Full Report</button>
-            <button onClick={showGradesOnly}>Download Grades as PDF</button>
+            <SchoolHeader currentSchool={currentSchool} showGradesOnly={showGradesOnly} />
             <ul>
               {
                 schoolQuery.map(schoolObj => <SchoolData 
@@ -77,9 +76,12 @@ const App = () => {
       {
         showPDF
           ? 
+          <>
+            <SchoolHeader currentSchool={currentSchool} showGradesOnly={showGradesOnly} />
             <PDFViewer width={500} height={800}>
               <PDFDoc school={currentSchool} grades={grades} />
             </PDFViewer>
+          </>
           : null
       }
     </div>
