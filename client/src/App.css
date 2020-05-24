@@ -1,5 +1,18 @@
+.App-searchPage {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .App {
+  min-height: 100vh;
+  margin-left: 20vw;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .App-cardsContainer {
@@ -7,9 +20,5 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   padding: 10px;
-  margin-left: 20vw;
-}
-
-.App-pdfViewer {
-  margin-left: 20vw;
+  margin-top: 0;
 }

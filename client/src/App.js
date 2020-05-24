@@ -60,7 +60,7 @@ const App = () => {
   }
 
   return (
-    <div className="App">
+    <>
       {
         schoolQuery.length !== 0
           ?
@@ -74,16 +74,17 @@ const App = () => {
       {
         currentSchool === ''
         ?
-        <>
+        <section className="App-searchPage">
           <h1>School Search</h1>
           <form method="GET" onSubmit={handleSubmit}>
           <label htmlFor="school" className="visuallyhidden">Name of School</label>
           <input type="text" name="school" id="school" value={schoolInput} placeholder="School" onChange={handleChange} />
           <button>Submit</button>
           </form>
-        </>
+        </section>
         : null
       }
+    <main className="App">
       {
         !isGradesPDF && !isFullPDF
           ? 
@@ -100,7 +101,7 @@ const App = () => {
       {
         isGradesPDF
           ? 
-            <PDFViewer width={500} height={800} className="App-pdfViewer">
+            <PDFViewer width={500} height={700} className="App-pdfViewer">
               <GradesPDF school={currentSchool} grades={grades} />
             </PDFViewer>
           : null
@@ -108,12 +109,13 @@ const App = () => {
       {
         isFullPDF
           ?
-          <PDFViewer width={500} height={800} className="App-pdfViewer">
+          <PDFViewer width={500} height={700} className="App-pdfViewer">
               <FullPDF schoolQuery={schoolQuery} currentSchool={currentSchool}/>
             </PDFViewer>
           : null
       }
-    </div>
+    </main>
+    </>
   );
 }
 
