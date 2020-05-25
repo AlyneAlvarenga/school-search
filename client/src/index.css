@@ -8,6 +8,17 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 .visuallyhidden:not(:focus):not(:active) { position: absolute; width: 1px; height: 1px; margin: -1px;border: 0;padding: 0;white-space: nowrap;clip-path: inset(100%);clip: rect(00 0 0);overflow: hidden;}
 
 
+/*** Global Styles ***/
+
+:root {
+  --accentGrey: #627C85;
+  --sidebar: paleturquoise;
+  --accentTurquoise: darkturquoise;
+}
+
+html {
+  font-size: 62.5%;
+}
 
 body {
   margin: 0;
@@ -24,4 +35,33 @@ ul {
 
 li {
   list-style-type: none;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+h1 {
+  font-size: 5rem;
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+p, button, li, input {
+  font-size: 1.8rem;
+}
+
+button, .button {
+  padding: 1rem 2rem;
+  color: white;
+  background-color: var(--accentGrey);
+  border: 1px solid var(--accentGrey);
+  border-radius: 2rem;
+}
+
+.button {
+  display: block;
+  text-decoration: none;
 }

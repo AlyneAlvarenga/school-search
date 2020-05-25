@@ -16,6 +16,7 @@ const App = () => {
   const [currentSchool, setCurrentSchool] = useState('');
   const [schoolQuery, setSchoolQuery] = useState([]);
   const [grades, setGrades] = useState([]);
+  const [isCards, setIsCards] = useState(false);
   const [isGradesPDF, setIsGradesPDF] = useState(false);
   const [isFullPDF, setIsFullPDF] = useState(false);
 
@@ -60,6 +61,7 @@ const App = () => {
       })
     
       setSchoolInput('');
+      setIsCards(true);
   }
 
   const showGradesPDF = () => {
@@ -68,99 +70,107 @@ const App = () => {
 
     setIsGradesPDF(true);
     setIsFullPDF(false);
+    setIsCards(false);
   }
 
   const showFullPDF = () => {
     setIsFullPDF(true);
     setIsGradesPDF(false);
+    setIsCards(false);
+  }
+
+  const showCards = () => {
+    setIsFullPDF(false);
+    setIsGradesPDF(false);
+    setIsCards(true);
   }
 
   return (
     <>
       {
-        schoolQuery.length !== 0
+        schoolQuery.length === 0
           ?
-          <SchoolHeader
-            currentSchool={currentSchool}
-            showGradesPDF={showGradesPDF}
-            showFullPDF={showFullPDF}
-          />
-          : null
+            <section className="App-searchPage">
+              <h1>School Search</h1>
+              <form method="GET" onSubmit={handleSubmit}>
+                <label htmlFor="schoolName" className="visuallyhidden">Name of School</label>
+                <Autosuggest
+                  inputProps={{
+                    placeholder: "Type your school",
+                    name: "schoolName",
+                    id: "schoolName",
+                    value: schoolInput,
+                    onChange: (e, { newValue }) => {
+                      setSchoolInput(newValue);
+                    }
+                  }}
+                  suggestions={suggestions}
+                  onSuggestionsFetchRequested={({ value }) => {
+                    if (!value) {
+                      setSuggestions([]);
+                      return;
+                    } else {
+                      setSuggestions(getSuggestions(value));
+                    }
+                  }}
+                  onSuggestionsClearRequested={() => {
+                    setSuggestions([]);
+                  }}
+                  getSuggestionValue={(suggestion) => {
+                    return suggestion._id;
+                  }}
+                  renderSuggestion={suggestion => (
+                    <div>
+                      {suggestion._id}
+                    </div>
+                  )}
+                />
+                <button>Submit</button>
+              </form>
+            </section>
+          : 
+            <SchoolHeader
+              currentSchool={currentSchool}
+              showGradesPDF={showGradesPDF}
+              showFullPDF={showFullPDF}
+              showCards={showCards}
+            />
       }
       {
-        currentSchool === ''
-        ?
-        <section className="App-searchPage">
-          <h1>School Search</h1>
-          <form method="GET" onSubmit={handleSubmit}>
-          <label htmlFor="schoolName" className="visuallyhidden">Name of School</label>
-          <Autosuggest 
-            inputProps={{
-              placeholder: "Type your school",
-              name: "schoolName",
-              id: "schoolName",
-              value: schoolInput,
-              onChange: (e, {newValue}) => {
-                setSchoolInput(newValue);
-              }
-            }}
-            suggestions={suggestions}
-            onSuggestionsFetchRequested={({value}) => {
-              if (!value) {
-                setSuggestions([]);
-                return;
-              } else {
-                setSuggestions(getSuggestions(value));
-              }
-            }}
-            onSuggestionsClearRequested={() => {
-              setSuggestions([]);
-            }}
-            getSuggestionValue={(suggestion) => {
-              return suggestion._id;
-            }}
-            renderSuggestion={suggestion => (
-              <div>
-                {suggestion._id}
-              </div>
-            )}
-          />
-          <button>Submit</button>
-          </form>
-        </section>
-        : null
-      }
-    <main className="App">
-      {
-        !isGradesPDF && !isFullPDF
+        isCards
           ? 
-            <ul className="App-cardsContainer">
-              {
-                schoolQuery.map(schoolObj => <SchoolData 
-                  schoolObj={schoolObj} 
-                  key={schoolObj._id}
-                />)
-              }
-            </ul>
+            <main className="App">
+              <ul className="App-cardsContainer">
+                {
+                  schoolQuery.map(schoolObj => <SchoolData 
+                    schoolObj={schoolObj} 
+                    key={schoolObj._id}
+                  />)
+                }
+              </ul>
+            </main>
           : null
       }
       {
         isGradesPDF
           ? 
+          <main className="App">
             <PDFViewer width={500} height={700} className="App-pdfViewer">
               <GradesPDF school={currentSchool} grades={grades} />
             </PDFViewer>
+          </main>
           : null
       }
       {
         isFullPDF
           ?
-          <PDFViewer width={500} height={700} className="App-pdfViewer">
-              <FullPDF schoolQuery={schoolQuery} currentSchool={currentSchool}/>
-            </PDFViewer>
+          <main className="App">
+            <PDFViewer width={500} height={700} className="App-pdfViewer">
+                <FullPDF schoolQuery={schoolQuery} currentSchool={currentSchool}/>
+              </PDFViewer>
+            </main>
           : null
       }
-    </main>
     </>
   );
 }

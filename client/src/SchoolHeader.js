@@ -25,13 +25,29 @@ const SchoolHeader = (props) => {
 
   return (
     <header>
-      <h2>{props.currentSchool}</h2>
-      <button disabled>See Full Report</button>
-      <button onClick={props.showFullPDF}>See Full Report as PDF</button>
-      <button onClick={props.showGradesPDF}>See Grades as PDF</button>
-      <CSVLink data={data} headers={headers} >
-        Download Full Report as CSV
-      </CSVLink>
+      <div className="SchoolHeader-top">
+        <h2>{props.currentSchool}</h2>
+        <button disabled>Change Schools</button>
+      </div>
+      <ul>
+        <li>
+          <button onClick={props.showCards}>See Student Cards</button>
+        </li>
+        <li>
+          <button disabled>See Student Table</button>
+        </li>
+        <li>
+          <button onClick={props.showFullPDF}>See Full Report as PDF</button>
+        </li>
+        <li>
+          <button onClick={props.showGradesPDF}>See Grades as PDF</button>
+        </li>
+        <li>
+          <CSVLink data={data} headers={headers} className="button" >
+            Download Full Report as CSV
+          </CSVLink>
+        </li>
+      </ul>
     </header>
   )
 }

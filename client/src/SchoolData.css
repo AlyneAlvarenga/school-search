@@ -1,5 +1,6 @@
 .SchoolData-card {
-  border: 1px solid seagreen;
+  border: 2px solid var(--accentTurquoise);
+  border-radius: 2rem;
   min-width: 250px;
   margin: 20px;
 }

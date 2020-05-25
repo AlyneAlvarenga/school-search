@@ -2,8 +2,18 @@ header {
   position: fixed;
   width: 20vw;
   height: 100vh;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+  background-color: var(--sidebar);
+}
+
+.SchoolHeader-top {
+  text-align: center;
+}
+
+header li {
+  padding: 0.5rem 0;
 }
