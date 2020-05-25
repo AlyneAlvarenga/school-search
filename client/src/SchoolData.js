@@ -6,7 +6,7 @@ const SchoolData = (props) => {
     <li className="SchoolData-card">
       <p>Last Name: {props.schoolObj.studentLastName}</p>
       <p>First Name: {props.schoolObj.studentFirstName}</p>
-      <p>Grades:</p>
+      <p>Grades</p>
       <ul className="SchoolData-gradesContainer">
       {
         props.schoolObj.grades.map(obj => {

@@ -5,7 +5,26 @@
   margin: 20px;
 }
 
+.SchoolData-card p:nth-of-type(3) {
+  margin: 4rem 0 0;
+}
+
 .SchoolData-gradesContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+}
+
+.SchoolData-gradesContainer li {
+  display: grid;
+  grid-template-rows: minmax(70px, auto);
+  align-items: center;
+  justify-content: center;
+}
+
+.SchoolData-gradesContainer li p:first-child {
+  margin: 1rem 0;
+}
+
+.SchoolData-gradesContainer li p:last-child {
+  margin: 0.3rem 0 1rem;
 }
