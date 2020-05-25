@@ -4,7 +4,7 @@ const router = express.Router();
 //Bring Student model
 const Student = require('../../models/Student');
 
-//GET api/students
+//GET all students, all schools: api/students
 router.get('/', (req, res) => {
   Student.find()
     .sort({name: -1})  

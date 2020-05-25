@@ -22,7 +22,7 @@ const App = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setCurrentSchool(schoolInput);
+    // setCurrentSchool(schoolInput);
     
     axios.get(`/api/${schoolInput}`)
       .then(response => {
@@ -40,6 +40,10 @@ const App = () => {
           return 0;
         })
         setSchoolQuery(sorted);
+        setCurrentSchool(response.data[0].schoolName);
+      }).catch(err => {
+        console.log(err);
+        alert('No schools found, please try again.')
       })
     
       setSchoolInput('');
