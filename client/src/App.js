@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { PDFViewer } from '@react-pdf/renderer';
+import Autosuggest from 'react-autosuggest';
 import './App.css';
 import SchoolData from './SchoolData';
 import SchoolHeader from './SchoolHeader';
@@ -10,19 +11,31 @@ import FullPDF from './FullPDF';
 
 const App = () => {
   const [schoolInput, setSchoolInput] = useState('');
+  const [allSchools, setAllSchools] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
   const [currentSchool, setCurrentSchool] = useState('');
   const [schoolQuery, setSchoolQuery] = useState([]);
   const [grades, setGrades] = useState([]);
   const [isGradesPDF, setIsGradesPDF] = useState(false);
   const [isFullPDF, setIsFullPDF] = useState(false);
 
-  const handleChange = (e) => {
-    setSchoolInput(e.target.value);
-  }
+  useEffect(() => {
+    axios.get(`/api/allSchools`).then(res => {
+      setAllSchools(res.data);
+    })
+  }, []);
+
+  const getSuggestions = value => {
+    const inputValue = value.trim().toLowerCase();
+    const inputLength = inputValue.length;
+
+    return inputLength === 0 ? [] : allSchools.filter(school =>
+      school._id.toLowerCase().slice(0, inputLength) === inputValue
+    );
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // setCurrentSchool(schoolInput);
     
     axios.get(`/api/${schoolInput}`)
       .then(response => {
@@ -55,7 +68,6 @@ const App = () => {
 
     setIsGradesPDF(true);
     setIsFullPDF(false);
-
   }
 
   const showFullPDF = () => {
@@ -81,8 +93,38 @@ const App = () => {
         <section className="App-searchPage">
           <h1>School Search</h1>
           <form method="GET" onSubmit={handleSubmit}>
-          <label htmlFor="school" className="visuallyhidden">Name of School</label>
-          <input type="text" name="school" id="school" value={schoolInput} placeholder="School" onChange={handleChange} />
+          <label htmlFor="schoolName" className="visuallyhidden">Name of School</label>
+          <Autosuggest 
+            inputProps={{
+              placeholder: "Type your school",
+              name: "schoolName",
+              id: "schoolName",
+              value: schoolInput,
+              onChange: (e, {newValue}) => {
+                setSchoolInput(newValue);
+              }
+            }}
+            suggestions={suggestions}
+            onSuggestionsFetchRequested={({value}) => {
+              if (!value) {
+                setSuggestions([]);
+                return;
+              } else {
+                setSuggestions(getSuggestions(value));
+              }
+            }}
+            onSuggestionsClearRequested={() => {
+              setSuggestions([]);
+            }}
+            getSuggestionValue={(suggestion) => {
+              return suggestion._id;
+            }}
+            renderSuggestion={suggestion => (
+              <div>
+                {suggestion._id}
+              </div>
+            )}
+          />
           <button>Submit</button>
           </form>
         </section>

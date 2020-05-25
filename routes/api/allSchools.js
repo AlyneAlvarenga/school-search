@@ -1,0 +1,21 @@
+const express = require('express');
+const router = express.Router();
+
+//Bring Student model
+const Student = require('../../models/Student');
+
+//GET all schools: api/allSchools
+router.get('/', (req, res) => {
+  Student.aggregate([
+    {$group: {_id: "$schoolName"}}
+  ]).then(objs => {
+    res.json(objs)
+  })
+  // Student.find()
+  //   .sort({name: -1})  
+  //   .then(items => {
+  //     res.json(items)
+  //   })
+})
+
+module.exports = router;
