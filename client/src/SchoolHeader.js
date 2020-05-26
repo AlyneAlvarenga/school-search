@@ -27,7 +27,7 @@ const SchoolHeader = (props) => {
     <header>
       <div className="SchoolHeader-top">
         <h2>{props.currentSchool}</h2>
-        <button disabled>Change Schools</button>
+        <button onClick={props.handleReset}>Change Schools</button>
       </div>
       <ul>
         <li>

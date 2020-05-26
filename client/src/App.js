@@ -11,9 +11,9 @@ import FullPDF from './FullPDF';
 
 const App = () => {
   const [schoolInput, setSchoolInput] = useState('');
+  const [currentSchool, setCurrentSchool] = useState('');
   const [allSchools, setAllSchools] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
-  const [currentSchool, setCurrentSchool] = useState('');
   const [schoolQuery, setSchoolQuery] = useState([]);
   const [grades, setGrades] = useState([]);
   const [isCards, setIsCards] = useState(false);
@@ -85,6 +85,15 @@ const App = () => {
     setIsCards(true);
   }
 
+  const handleReset = () => {
+    setSchoolQuery([]);
+    setCurrentSchool('');
+    setGrades([]);
+    setIsFullPDF(false);
+    setIsGradesPDF(false);
+    setIsCards(false);
+  }
+
   return (
     <>
       {
@@ -134,6 +143,7 @@ const App = () => {
               showGradesPDF={showGradesPDF}
               showFullPDF={showFullPDF}
               showCards={showCards}
+              handleReset={handleReset}
             />
       }
       {
