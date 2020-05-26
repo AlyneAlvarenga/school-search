@@ -4,6 +4,7 @@ import { PDFViewer } from '@react-pdf/renderer';
 import Autosuggest from 'react-autosuggest';
 import './App.css';
 import SchoolData from './SchoolData';
+import StudentTable from './StudentTable';
 import SchoolHeader from './SchoolHeader';
 import GradesPDF from './GradesPDF';
 import FullPDF from './FullPDF';
@@ -17,6 +18,7 @@ const App = () => {
   const [schoolQuery, setSchoolQuery] = useState([]);
   const [grades, setGrades] = useState([]);
   const [isCards, setIsCards] = useState(false);
+  const [isTable, setIsTable] = useState(false);
   const [isGradesPDF, setIsGradesPDF] = useState(false);
   const [isFullPDF, setIsFullPDF] = useState(false);
 
@@ -77,12 +79,21 @@ const App = () => {
     setIsFullPDF(true);
     setIsGradesPDF(false);
     setIsCards(false);
+    setIsTable(false);
   }
 
   const showCards = () => {
     setIsFullPDF(false);
     setIsGradesPDF(false);
+    setIsTable(false);
     setIsCards(true);
+  }
+
+  const showTable = () => {
+    setIsFullPDF(false);
+    setIsGradesPDF(false);
+    setIsCards(false);
+    setIsTable(true);
   }
 
   const handleReset = () => {
@@ -100,42 +111,44 @@ const App = () => {
         schoolQuery.length === 0
           ?
             <section className="App-searchPage">
-              <h1>School Search</h1>
-              <form method="GET" onSubmit={handleSubmit}>
-                <label htmlFor="schoolName" className="visuallyhidden">Name of School</label>
-                <Autosuggest
-                  inputProps={{
-                    placeholder: "Type your school",
-                    name: "schoolName",
-                    id: "schoolName",
-                    value: schoolInput,
-                    onChange: (e, { newValue }) => {
-                      setSchoolInput(newValue);
-                    }
-                  }}
-                  suggestions={suggestions}
-                  onSuggestionsFetchRequested={({ value }) => {
-                    if (!value) {
+              <div className="App-searchContainer">
+                <h1>School Search</h1>
+                <form method="GET" onSubmit={handleSubmit}>
+                  <label htmlFor="schoolName" className="visuallyhidden">Name of School</label>
+                  <Autosuggest
+                    inputProps={{
+                      placeholder: "Type your school",
+                      name: "schoolName",
+                      id: "schoolName",
+                      value: schoolInput,
+                      onChange: (e, { newValue }) => {
+                        setSchoolInput(newValue);
+                      }
+                    }}
+                    suggestions={suggestions}
+                    onSuggestionsFetchRequested={({ value }) => {
+                      if (!value) {
+                        setSuggestions([]);
+                        return;
+                      } else {
+                        setSuggestions(getSuggestions(value));
+                      }
+                    }}
+                    onSuggestionsClearRequested={() => {
                       setSuggestions([]);
-                      return;
-                    } else {
-                      setSuggestions(getSuggestions(value));
-                    }
-                  }}
-                  onSuggestionsClearRequested={() => {
-                    setSuggestions([]);
-                  }}
-                  getSuggestionValue={(suggestion) => {
-                    return suggestion._id;
-                  }}
-                  renderSuggestion={suggestion => (
-                    <div>
-                      {suggestion._id}
-                    </div>
-                  )}
-                />
-                <button>Submit</button>
-              </form>
+                    }}
+                    getSuggestionValue={(suggestion) => {
+                      return suggestion._id;
+                    }}
+                    renderSuggestion={suggestion => (
+                      <div>
+                        {suggestion._id}
+                      </div>
+                    )}
+                  />
+                  <button>Submit</button>
+                </form>
+              </div>
             </section>
           : 
             <SchoolHeader
@@ -143,6 +156,7 @@ const App = () => {
               showGradesPDF={showGradesPDF}
               showFullPDF={showFullPDF}
               showCards={showCards}
+              showTable={showTable}
               handleReset={handleReset}
             />
       }
@@ -159,6 +173,14 @@ const App = () => {
                 }
               </ul>
             </main>
+          : null
+      }
+      {
+        isTable
+          ?
+            <StudentTable 
+              schoolQuery={schoolQuery}
+            />
           : null
       }
       {

@@ -34,7 +34,7 @@ const SchoolHeader = (props) => {
           <button onClick={props.showCards}>See Student Cards</button>
         </li>
         <li>
-          <button disabled>See Student Table</button>
+          <button onClick={props.showTable}>See Student Table</button>
         </li>
         <li>
           <button onClick={props.showFullPDF}>See Full Report as PDF</button>

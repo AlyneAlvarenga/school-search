@@ -1,9 +1,15 @@
 .App-searchPage {
-  min-height: 90vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.App-searchContainer {
+  border: 2px solid var(--sidebar);
+  border-radius: 1rem;
+  padding: 8rem;
 }
 
 form {
@@ -43,6 +49,7 @@ input:focus {
   position: absolute;
   top: 51px;
   width: 30rem;
+  background-color: white;
   border: 1px solid var(--accentGrey);
   border-radius: 1rem;
   z-index: 2;
@@ -60,6 +67,7 @@ input:focus {
 
 .react-autosuggest__suggestion--highlighted {
   background-color: #ddd;
+  border-radius: 1rem;
 }
 
 .App {
