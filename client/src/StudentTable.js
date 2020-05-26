@@ -1,12 +1,11 @@
 import React from 'react';
+import './StudentTable.css';
 
 const StudentTable = (props) => {
 
   const showSubjectHeadings = () => {
     const lengthsArr = props.schoolQuery.map(obj => obj.grades.length);
-
     const highestNum = Math.max(...lengthsArr);
-
     const arrOfElements = [];
 
     for (let i = 0; i < highestNum; i++) {
@@ -17,7 +16,7 @@ const StudentTable = (props) => {
   }
   
   return (
-    <main className="App">
+    <main className="App StudentTable-container">
       <table>
         <thead>
           <tr>

@@ -9,7 +9,7 @@ const SchoolHeader = (props) => {
   useEffect(() => {
     axios.get(`/api/${props.currentSchool}/csvData`)
       .then(response => {
-        console.log(response.data);
+        console.log('inside header', response.data);
 
         setData(response.data);
       })
@@ -31,16 +31,16 @@ const SchoolHeader = (props) => {
       </div>
       <ul>
         <li>
-          <button onClick={props.showCards}>See Student Cards</button>
+          <button onClick={props.showCards} className={props.isCards ? 'selected' : null}>See Student Cards</button>
         </li>
         <li>
-          <button onClick={props.showTable}>See Student Table</button>
+          <button onClick={props.showTable} className={props.isTable ? 'selected' : null}>See Student Table</button>
         </li>
         <li>
-          <button onClick={props.showFullPDF}>See Full Report as PDF</button>
+          <button onClick={props.showFullPDF} className={props.isFullPDF ? 'selected' : null}>See Full Report as PDF</button>
         </li>
         <li>
-          <button onClick={props.showGradesPDF}>See Grades as PDF</button>
+          <button onClick={props.showGradesPDF} className={props.isGradesPDF ? 'selected' : null}>See Grades as PDF</button>
         </li>
         <li>
           <CSVLink data={data} headers={headers} className="button" >

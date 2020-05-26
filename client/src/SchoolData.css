@@ -1,8 +1,9 @@
 .SchoolData-card {
   border: 2px solid var(--accentTurquoise);
   border-radius: 2rem;
-  min-width: 250px;
-  margin: 20px;
+  min-width: 320px;
+  margin: 2rem;
+  padding: 1rem;
 }
 
 .SchoolData-card p:nth-of-type(3) {

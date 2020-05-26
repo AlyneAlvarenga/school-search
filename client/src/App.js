@@ -103,6 +103,7 @@ const App = () => {
     setIsFullPDF(false);
     setIsGradesPDF(false);
     setIsCards(false);
+    setIsTable(false);
   }
 
   return (
@@ -158,6 +159,10 @@ const App = () => {
               showCards={showCards}
               showTable={showTable}
               handleReset={handleReset}
+              isCards={isCards}
+              isTable={isTable}
+              isFullPDF={isFullPDF}
+              isGradesPDF={isGradesPDF}
             />
       }
       {

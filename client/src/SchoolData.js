@@ -4,8 +4,8 @@ import './SchoolData.css';
 const SchoolData = (props) => {
   return (
     <li className="SchoolData-card">
-      <p>Last Name: {props.schoolObj.studentLastName}</p>
-      <p>First Name: {props.schoolObj.studentFirstName}</p>
+      <p>Last Name: <strong>{props.schoolObj.studentLastName}</strong></p>
+      <p>First Name: <strong>{props.schoolObj.studentFirstName}</strong></p>
       <p>Grades</p>
       <ul className="SchoolData-gradesContainer">
       {
