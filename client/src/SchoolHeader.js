@@ -7,12 +7,14 @@ const SchoolHeader = (props) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get(`/api/${props.currentSchool}/csvData`)
+    if (props.currentSchool !== '') {
+      axios.get(`/api/${props.currentSchool}/csvData`)
       .then(response => {
         console.log('inside header', response.data);
 
         setData(response.data);
       })
+    }
   }, [props.currentSchool]);
 
   const headers = [

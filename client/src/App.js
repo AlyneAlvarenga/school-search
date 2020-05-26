@@ -109,7 +109,7 @@ const App = () => {
   return (
     <>
       {
-        schoolQuery.length === 0
+        schoolQuery.length === 0 && currentSchool === ''
           ?
             <section className="App-searchPage">
               <div className="App-searchContainer">
