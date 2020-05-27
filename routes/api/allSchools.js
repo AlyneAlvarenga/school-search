@@ -11,11 +11,6 @@ router.get('/', (req, res) => {
   ]).then(objs => {
     res.json(objs)
   })
-  // Student.find()
-  //   .sort({name: -1})  
-  //   .then(items => {
-  //     res.json(items)
-  //   })
 })
 
 module.exports = router;
