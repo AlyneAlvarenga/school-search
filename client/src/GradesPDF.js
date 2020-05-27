@@ -5,27 +5,39 @@ import { v4 as uuidv4 } from 'uuid';
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
-    backgroundColor: '#E4E4E4'
+    backgroundColor: '#fff',
+    border: "1 solid black",
+    margin: 5
   },
   section: {
     margin: 10,
     padding: 10,
     flexGrow: 1,
-    textAlign: "center"
-  }
+    textAlign: "center",
+    maxHeight: 70,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    border: "1 solid #000",
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginTop: 5,
+    marginBottom: 10,
+    marginRight: 10
+  },
 });
 
 const GradesPDF = (props) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
-        <Text>{props.school}</Text>
+        <Text style={{ fontSize: 25 }}>{props.school}</Text>
       </View>
-      <View style={styles.section}>
         {
           props.grades.map(subj => {
             return (
-              <View key={uuidv4()}>
+              <View key={uuidv4()} style={styles.row}>
                 <Text>{subj._id}</Text>
                 {
                   subj.grades.map(grade => {
@@ -36,7 +48,6 @@ const GradesPDF = (props) => (
             )
           })
         }
-      </View>
     </Page>
   </Document>
 );

@@ -36,7 +36,6 @@ const App = () => {
     
     axios.get(`/api/${schoolInput}`)
       .then(response => {
-        console.log(response.data)
         const sorted = response.data.sort((a, b) => {
           const nameA = a.studentLastName.toLowerCase();
           const nameB = b.studentLastName.toLowerCase();
@@ -130,6 +129,14 @@ const App = () => {
             />
       }
       {
+        isTable
+          ?
+          <StudentTable
+            schoolQuery={schoolQuery}
+          />
+          : null
+      }
+      {
         isCards
           ? 
             <main className="App">
@@ -145,18 +152,10 @@ const App = () => {
           : null
       }
       {
-        isTable
-          ?
-            <StudentTable 
-              schoolQuery={schoolQuery}
-            />
-          : null
-      }
-      {
         isGradesPDF
           ? 
           <main className="App">
-            <PDFViewer width={600} height={700} className="App-pdfViewer">
+            <PDFViewer width={500} height={700} className="App-pdfViewer">
               <GradesPDF school={currentSchool} grades={grades} />
             </PDFViewer>
           </main>

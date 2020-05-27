@@ -33,16 +33,16 @@ const SchoolHeader = (props) => {
       </div>
       <ul>
         <li>
-          <button onClick={props.showCards} className={props.isCards ? 'selected' : null}>See Student Cards</button>
-        </li>
-        <li>
           <button onClick={props.showTable} className={props.isTable ? 'selected' : null}>See Student Table</button>
         </li>
         <li>
-          <button onClick={props.showFullPDF} className={props.isFullPDF ? 'selected' : null}>See Full Report as PDF</button>
+          <button onClick={props.showCards} className={props.isCards ? 'selected' : null}>See Student Cards</button>
         </li>
         <li>
           <button onClick={props.showGradesPDF} className={props.isGradesPDF ? 'selected' : null}>See Grades as PDF</button>
+        </li>
+        <li>
+          <button onClick={props.showFullPDF} className={props.isFullPDF ? 'selected' : null}>See Full Report as PDF</button>
         </li>
         <li>
           <CSVLink data={data} headers={headers} className="button" >
