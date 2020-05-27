@@ -4,8 +4,9 @@ import { PDFViewer } from '@react-pdf/renderer';
 import './App.css';
 import SearchPage from './SearchPage';
 import SchoolData from './SchoolData';
-import StudentTable from './StudentTable';
 import SchoolHeader from './SchoolHeader';
+import StudentCount from './StudentCount';
+import StudentTable from './StudentTable';
 import GradesPDF from './GradesPDF';
 import FullPDF from './FullPDF';
 
@@ -22,10 +23,26 @@ const App = () => {
   const [isGradesPDF, setIsGradesPDF] = useState(false);
   const [isFullPDF, setIsFullPDF] = useState(false);
 
+  const sortThis = (arr, key) => {
+    return arr.sort((a, b) => {
+      const nameA = a[key].toLowerCase();
+      const nameB = b[key].toLowerCase();
+
+      if (nameA < nameB) {
+        return -1
+      }
+      if (nameA > nameB) {
+        return 1
+      }
+      return 0;
+    })
+  }
+
   // When the component mounts, query the DB and get the names of all the schools. Save it to state in order to render options to the input in the SearchPage component
   useEffect(() => {
     axios.get(`/api/allSchools`).then(res => {
-      setAllSchools(res.data);
+      const sorted = sortThis(res.data, "_id");
+      setAllSchools(sorted);
     })
   }, []);
 
@@ -36,18 +53,7 @@ const App = () => {
     
     axios.get(`/api/${schoolInput}`)
       .then(response => {
-        const sorted = response.data.sort((a, b) => {
-          const nameA = a.studentLastName.toLowerCase();
-          const nameB = b.studentLastName.toLowerCase();
-
-          if (nameA < nameB) {
-            return -1
-          }
-          if (nameA > nameB) {
-            return 1
-          }
-          return 0;
-        })
+        const sorted = sortThis(response.data, "studentLastName");
         setSchoolQuery(sorted);
         setCurrentSchool(response.data[0].schoolName);
       }).catch(err => {
@@ -131,23 +137,28 @@ const App = () => {
       {
         isTable
           ?
-          <StudentTable
-            schoolQuery={schoolQuery}
-          />
+            <StudentTable
+              schoolQuery={schoolQuery}
+            />
           : null
       }
       {
         isCards
           ? 
-            <main className="App">
-              <ul className="App-cardsContainer">
-                {
-                  schoolQuery.map(schoolObj => <SchoolData 
-                    schoolObj={schoolObj} 
-                    key={schoolObj._id}
-                  />)
-                }
-              </ul>
+            <main className="App App-cardsSection">
+              <StudentCount 
+                schoolQuery={schoolQuery}
+              />
+              <section>
+                <ul className="App-cardsContainer">
+                  {
+                    schoolQuery.map(schoolObj => <SchoolData 
+                      schoolObj={schoolObj} 
+                      key={schoolObj._id}
+                    />)
+                  }
+                </ul>
+              </section>
             </main>
           : null
       }

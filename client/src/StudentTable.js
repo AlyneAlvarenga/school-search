@@ -1,4 +1,5 @@
 import React from 'react';
+import StudentCount from './StudentCount';
 import './StudentTable.css';
 
 const StudentTable = (props) => {
@@ -17,6 +18,7 @@ const StudentTable = (props) => {
   
   return (
     <main className="App StudentTable-container">
+      <StudentCount schoolQuery={props.schoolQuery} />
       <table>
         <thead>
           <tr>
