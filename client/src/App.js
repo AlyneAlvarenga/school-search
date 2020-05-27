@@ -124,12 +124,13 @@ const App = () => {
                       value: schoolInput,
                       onChange: (e, { newValue }) => {
                         setSchoolInput(newValue);
-                      }
+                      },
                     }}
+                    shouldRenderSuggestions={() => true}
                     suggestions={suggestions}
                     onSuggestionsFetchRequested={({ value }) => {
                       if (!value) {
-                        setSuggestions([]);
+                        setSuggestions(allSchools);
                         return;
                       } else {
                         setSuggestions(getSuggestions(value));
