@@ -80,3 +80,9 @@ button:hover, button:focus, button:active, .button:hover, .button:focus, .button
 .selected {
   cursor: default;
 }
+
+@media (max-width: 595px) {
+  h1 {
+    font-size: 4rem;
+  }
+}

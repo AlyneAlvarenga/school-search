@@ -10,8 +10,6 @@ const SchoolHeader = (props) => {
     if (props.currentSchool !== '') {
       axios.get(`/api/${props.currentSchool}/csvData`)
       .then(response => {
-        console.log('inside header', response.data);
-
         setData(response.data);
       })
     }
@@ -45,7 +43,12 @@ const SchoolHeader = (props) => {
           <button onClick={props.showFullPDF} className={props.isFullPDF ? 'selected' : null}>See Full Report as PDF</button>
         </li>
         <li>
-          <CSVLink data={data} headers={headers} className="button" >
+          <CSVLink 
+            data={data} 
+            headers={headers} 
+            className="button" 
+            filename={"student-report.csv"}
+          >
             Download Full Report as CSV
           </CSVLink>
         </li>

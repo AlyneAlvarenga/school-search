@@ -69,3 +69,39 @@ input:focus {
   background-color: #ddd;
   border-radius: 1rem;
 }
+
+@media (max-width: 595px) {
+
+  .SearchPage-section {
+    margin-top: 5rem;
+    justify-content: flex-start;
+  }
+
+  .SearchPage-searchContainer {
+    padding: 6rem;
+  }
+
+  form {
+    grid-template-columns: 1fr;
+    grid-gap: 0.5rem;
+  }
+
+  form button {
+    justify-self: auto;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 455px) {
+  .SearchPage-searchContainer {
+    padding: 4%;
+  }
+
+  .react-autosuggest__input, .react-autosuggest__suggestions-container--open {
+    width: 25rem;
+  }
+
+  form {
+    grid-template-columns: auto;
+  }
+}
