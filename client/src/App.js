@@ -68,6 +68,7 @@ const App = () => {
     setIsGradesPDF(true);
     setIsFullPDF(false);
     setIsCards(false);
+    setIsTable(false);
   }
 
   const showFullPDF = () => {
@@ -155,7 +156,7 @@ const App = () => {
         isGradesPDF
           ? 
           <main className="App">
-            <PDFViewer width={500} height={700} className="App-pdfViewer">
+            <PDFViewer width={600} height={700} className="App-pdfViewer">
               <GradesPDF school={currentSchool} grades={grades} />
             </PDFViewer>
           </main>

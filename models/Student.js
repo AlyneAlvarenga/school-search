@@ -30,6 +30,7 @@ const StudentSchema = new Schema({
 //     grades: [
 //       { subject: 'History of Magic', grade: 50 },
 //       { subject: 'Potions', grade: 50 },
+//       { subject: 'Charms', grade: 60 },
 //     ]
 //   })
 
@@ -115,6 +116,7 @@ const StudentSchema = new Schema({
 //   studentFirstName: `Logan`,
 //   studentLastName: 'Wolverine',
 //   grades: [
+//     { subject: 'Math', grade: 50 },
 //     { subject: 'Science', grade: 50 },
 //     { subject: 'Combat', grade: 100 },
 //   ]
