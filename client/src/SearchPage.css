@@ -1,0 +1,71 @@
+.SearchPage-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.SearchPage-searchContainer {
+  border: 2px solid var(--sidebar);
+  border-radius: 1rem;
+  padding: 8rem;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  justify-content: center;
+  align-items: center;
+}
+
+form button {
+  justify-self: center;
+  margin-left: 0.3rem;
+}
+
+input:focus {
+  box-shadow: 0 0 10px var(--accentGrey);
+}
+
+.react-autosuggest__container {
+  position: relative;
+}
+
+.react-autosuggest__input {
+  width: 30rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 2px solid var(--accentTurquoise);
+  font-weight: 300;
+}
+
+.react-autosuggest__suggestions-container {
+  display: none;
+}
+
+.react-autosuggest__suggestions-container--open {
+  display: block;
+  position: absolute;
+  top: 51px;
+  width: 30rem;
+  background-color: white;
+  border: 1px solid var(--accentGrey);
+  border-radius: 1rem;
+  z-index: 2;
+}
+
+.react-autosuggest__suggestions-list {
+  margin: 0;
+  padding: 0;
+}
+
+.react-autosuggest__suggestion {
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+.react-autosuggest__suggestion--highlighted {
+  background-color: #ddd;
+  border-radius: 1rem;
+}

@@ -32,14 +32,12 @@ const StudentTable = (props) => {
         <tbody>
           {
             props.schoolQuery.map(obj => (
-              <tr>
+              <tr key={obj._id}>
                 <td>{obj.studentFirstName}</td>
                 <td>{obj.studentLastName}</td>
                   {
                     obj.grades.map(gradesObj => (
-                      <>
-                        <td>{gradesObj.subject} - {gradesObj.grade}</td>
-                      </>
+                      <td key={gradesObj._id}>{gradesObj.subject} - {gradesObj.grade}</td>
                     ))
                   }
               </tr>

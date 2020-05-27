@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { PDFViewer } from '@react-pdf/renderer';
-import Autosuggest from 'react-autosuggest';
 import './App.css';
+import SearchPage from './SearchPage';
 import SchoolData from './SchoolData';
 import StudentTable from './StudentTable';
 import SchoolHeader from './SchoolHeader';
@@ -22,21 +22,15 @@ const App = () => {
   const [isGradesPDF, setIsGradesPDF] = useState(false);
   const [isFullPDF, setIsFullPDF] = useState(false);
 
+  // When the component mounts, query the DB and get the names of all the schools. Save it to state in order to render options to the input in the SearchPage component
   useEffect(() => {
     axios.get(`/api/allSchools`).then(res => {
       setAllSchools(res.data);
     })
   }, []);
 
-  const getSuggestions = value => {
-    const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
-
-    return inputLength === 0 ? [] : allSchools.filter(school =>
-      school._id.toLowerCase().slice(0, inputLength) === inputValue
-    );
-  };
-
+  // On form submission, query the DB to fetch all students from that school. Sort them by last name, then save the result to state. Also save the school name to a separate piece of state. Clear the input, display the student table on the browser.
+  // If no schools are found, display an alert and clear the input.
   const handleSubmit = (e) => {
     e.preventDefault();
     
@@ -63,9 +57,10 @@ const App = () => {
       })
     
       setSchoolInput('');
-      setIsCards(true);
+      setIsTable(true);
   }
 
+  // Query the DB to get only the subjects + grades from that school. Save that data to state, and display the corresponding PDF. Hide the other components, so that we only see this PDF on the page.
   const showGradesPDF = () => {
     axios.get(`/api/${currentSchool}/grades`)
       .then(response => setGrades(response.data));
@@ -111,47 +106,14 @@ const App = () => {
       {
         schoolQuery.length === 0 && currentSchool === ''
           ?
-            <section className="App-searchPage">
-              <div className="App-searchContainer">
-                <h1>School Search</h1>
-                <form method="GET" onSubmit={handleSubmit}>
-                  <label htmlFor="schoolName" className="visuallyhidden">Name of School</label>
-                  <Autosuggest
-                    inputProps={{
-                      placeholder: "Type your school",
-                      name: "schoolName",
-                      id: "schoolName",
-                      value: schoolInput,
-                      onChange: (e, { newValue }) => {
-                        setSchoolInput(newValue);
-                      },
-                    }}
-                    shouldRenderSuggestions={() => true}
-                    suggestions={suggestions}
-                    onSuggestionsFetchRequested={({ value }) => {
-                      if (!value) {
-                        setSuggestions(allSchools);
-                        return;
-                      } else {
-                        setSuggestions(getSuggestions(value));
-                      }
-                    }}
-                    onSuggestionsClearRequested={() => {
-                      setSuggestions([]);
-                    }}
-                    getSuggestionValue={(suggestion) => {
-                      return suggestion._id;
-                    }}
-                    renderSuggestion={suggestion => (
-                      <div>
-                        {suggestion._id}
-                      </div>
-                    )}
-                  />
-                  <button>Submit</button>
-                </form>
-              </div>
-            </section>
+            <SearchPage 
+              handleSubmit={handleSubmit}
+              schoolInput={schoolInput}
+              setSchoolInput={setSchoolInput}
+              suggestions={suggestions}
+              setSuggestions={setSuggestions}
+              allSchools={allSchools}
+            />
           : 
             <SchoolHeader
               currentSchool={currentSchool}
