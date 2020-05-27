@@ -56,13 +56,13 @@ const App = () => {
         const sorted = sortThis(response.data, "studentLastName");
         setSchoolQuery(sorted);
         setCurrentSchool(response.data[0].schoolName);
+        setIsTable(true);
       }).catch(err => {
         console.log(err);
         alert('No schools found, please try again.')
       })
     
       setSchoolInput('');
-      setIsTable(true);
   }
 
   // Query the DB to get only the subjects + grades from that school. Save that data to state, and display the corresponding PDF. Hide the other components, so that we only see this PDF on the page.
