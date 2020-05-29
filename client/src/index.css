@@ -71,10 +71,13 @@ button, .button {
   text-decoration: none;
 }
 
+input:focus, button:focus .button:focus {
+  outline: none;
+}
+
 button:hover, button:focus, button:active, .button:hover, .button:focus, .button:active, .selected {
   background-color: transparent;
   color: var(--black);
-  outline: none;
 }
 
 .selected {
